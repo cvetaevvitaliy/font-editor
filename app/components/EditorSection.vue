@@ -40,6 +40,11 @@ const tabs = [
 		label: "Custom Graphics",
 		icon: "i-lucide-image",
 		slot: "custom-graphics" as const
+	},
+	{
+		label: "Flight Controller",
+		icon: "i-lucide-plane",
+		slot: "flight-controller" as const
 	}
 ] satisfies TabsItem[]
 </script>
@@ -183,6 +188,9 @@ const tabs = [
 		</template>
 		<template #custom-graphics>
 			<CustomGraphics />
+		</template>
+		<template #flight-controller>
+			<FlightControllerUpload />
 		</template>
 	</UTabs>
 	<div
