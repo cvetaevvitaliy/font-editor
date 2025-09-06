@@ -32,6 +32,7 @@ const selectedPort = ref<SerialPort | null>(null)
 const availablePorts = ref<SerialPort[]>([])
 const isUploading = ref(false)
 const uploadStatus = ref<string | null>(null)
+const uploadProgress = ref(0)
 
 async function refreshPorts() {
 	try {
@@ -115,6 +116,7 @@ async function uploadToDevice() {
 			)
 			await writer.write(packet)
 			await new Promise((r) => setTimeout(r, 60))
+			uploadProgress.value = i + 1
 		}
 
 		writer.releaseLock()
@@ -150,11 +152,12 @@ async function uploadToDevice() {
 				</p>
 			</div>
 
-			<div class="flex gap-4 items-center">
+			<div class="flex gap-4 items-center flex-wrap">
 				<!-- Open Serial Port Button -->
 				<UButton
 					color="primary"
 					variant="soft"
+					class="whitespace-nowrap"
 					icon="i-lucide-plug"
 					@click="requestPort"
 				>
@@ -168,25 +171,38 @@ async function uploadToDevice() {
 					color="secondary"
 					icon="i-heroicons-arrow-up"
 					variant="soft"
+					class="whitespace-nowrap"
 					@click="uploadToDevice"
 				>
 					Upload to Device
 				</UButton>
-			</div>
 
-			<div v-if="uploadStatus" class="mt-2">
-				<p
-					class="text-sm leading-tight"
-					:class="{
-						'text-green-500': uploadStatus.includes('successful'),
-						'text-red-500': uploadStatus.includes('failed'),
-						'text-blue-500':
-							!uploadStatus.includes('successful') &&
-							!uploadStatus.includes('failed')
-					}"
-				>
-					{{ uploadStatus }}
-				</p>
+				<div class="flex gap-2 grow min-w-64">
+					<div
+						:class="`flex items-center justify-center z-10 whitespace-nowrap font-mono text-sm
+						${
+							uploadProgress === 256
+								? 'text-green-500'
+								: uploadProgress > 0
+									? 'text-blue-500'
+									: 'text-neutral-500'
+						}`"
+					>
+						{{ uploadProgress.toString().padStart(3, "0") }} / 256
+					</div>
+					<UProgress
+						v-model="uploadProgress"
+						:max="256"
+						size="2xl"
+						:color="
+							uploadProgress === 256
+								? 'success'
+								: uploadProgress > 0
+									? 'info'
+									: 'primary'
+						"
+					/>
+				</div>
 			</div>
 
 			<div v-if="selectedPort" class="mt-2">
