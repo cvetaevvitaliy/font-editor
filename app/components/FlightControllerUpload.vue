@@ -142,13 +142,13 @@ async function uploadToDevice() {
 
 			<div class="flex flex-col gap-2 text-text text-sm max-w-[50ch]">
 				<p>
-					Upload your font directly to a flight controller via serial
-					connection. This feature uses the Web Serial API to communicate with
-					your device.
+					Upload your font directly to your device via serial connection. This
+					feature uses the Web Serial API and MSP packets to communicate with
+					the device.
 				</p>
 				<p>
-					Click "Open Serial Port" to select your flight controller's serial
-					port, then click "Upload to Device" to transfer the font data.
+					Click "Open Serial Port" to select your device's serial port, then
+					click "Upload to Device" to transfer the font data.
 				</p>
 			</div>
 

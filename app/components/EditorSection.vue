@@ -42,8 +42,8 @@ const tabs = [
 		slot: "custom-graphics" as const
 	},
 	{
-		label: "Flight Controller",
-		icon: "i-lucide-plane",
+		label: "USB Upload",
+		icon: "i-lucide-usb",
 		slot: "flight-controller" as const
 	}
 ] satisfies TabsItem[]
@@ -110,7 +110,7 @@ const tabs = [
 							<div class="flex items-center gap-2">
 								<UButton
 									:disabled="!historyStore.canUndo"
-									icon="i-heroicons-arrow-uturn-left"
+									icon="i-lucide-undo-2"
 									color="neutral"
 									variant="subtle"
 									size="sm"
@@ -123,7 +123,7 @@ const tabs = [
 								/>
 								<UButton
 									:disabled="!historyStore.canRedo"
-									icon="i-heroicons-arrow-uturn-right"
+									icon="i-lucide-redo-2"
 									color="neutral"
 									variant="subtle"
 									size="sm"
